@@ -1,0 +1,21 @@
+# Reference-based evaluation (PSNR / SSIM / LPIPS) on a paired test set.
+# Used by: python test.py --config configs/test.yaml
+
+model_path: models.llfdisc
+class_name: LLFDisc
+
+# Checkpoint to evaluate.
+weight_path: ./weights/lol_v1/best_psnr.pth
+
+# Paired test set.
+test_low: ./datasets/LOLv1/Test/low
+test_high: ./datasets/LOLv1/Test/high
+
+device: cuda:0
+# Unused during evaluation (test images are never cropped), but the key is
+# read by test.py, so keep it present.
+crop_size: 256
+
+# Dataloader worker processes. Lower to 0 or 2 on machines with few CPU
+# cores or limited RAM.
+num_workers: 4

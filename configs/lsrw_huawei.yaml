@@ -1,0 +1,43 @@
+# LLFDisc on LSRW (Huawei subset).
+# See configs/lol_v1.yaml for a description of every key.
+
+model_path: models.llfdisc
+class_name: LLFDisc
+loss_path: losses.combined
+loss_name: CombinedLossFull
+
+train_low: ./datasets/LSRW/Huawei/Train/low
+train_high: ./datasets/LSRW/Huawei/Train/high
+test_low: ./datasets/LSRW/Huawei/Eval/low
+test_high: ./datasets/LSRW/Huawei/Eval/high
+
+weight_path: ./weights/lsrw_huawei/None
+weight_save_path: ./weights/lsrw_huawei/
+checkpoint_save_path: ./weights/lsrw_huawei/checkpoint/
+checkpoint_path: ./weights/lsrw_huawei/checkpoint/None
+checkpoint_epoch: 50
+log_name: lsrw_huawei
+write_log: False
+
+device: cuda:0
+batch_size: 4
+num_epochs: 500
+learning_rate: 1e-4
+min_learning_rate: 2e-6
+patience: 300
+crop_size: 256
+log_epochs: 10
+seed: 42
+# Dataloader worker processes. Lower to 0 or 2 on machines with few CPU
+# cores or limited RAM.
+num_workers: 4
+
+alpha1: 1.0
+alpha2: 0.06
+alpha3: 0.05
+alpha4: 0.5
+alpha5: 0.0083
+alpha6: 0.25
+alpha7: 0.1
+alpha8: 0.1
+alpha_lpips: 0.1

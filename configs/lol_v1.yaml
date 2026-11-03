@@ -1,0 +1,54 @@
+# LLFDisc on LOL-v1.
+#
+# Every path is relative to the repository root, i.e. the directory you run
+# `python train.py` from.
+
+# --- Model and loss (resolved dynamically via importlib) ---
+model_path: models.llfdisc          # module holding the network class
+class_name: LLFDisc                 # network class name
+loss_path: losses.combined          # module holding the objective
+loss_name: CombinedLossFull         # objective class name
+
+# --- Dataset ---
+train_low: ./datasets/LOLv1/Train/low
+train_high: ./datasets/LOLv1/Train/high
+test_low: ./datasets/LOLv1/Test/low
+test_high: ./datasets/LOLv1/Test/high
+
+# --- Checkpoints and logs ---
+# weight_path is only probed for existence at start-up as a sanity check.
+weight_path: ./weights/lol_v1/None
+weight_save_path: ./weights/lol_v1/
+checkpoint_save_path: ./weights/lol_v1/checkpoint/
+# Point this at an existing checkpoint to resume; a non-existent path starts fresh.
+checkpoint_path: ./weights/lol_v1/checkpoint/None
+checkpoint_epoch: 50                # save a periodic checkpoint every N epochs
+log_name: lol_v1
+write_log: False                    # True writes a training log under ./log/
+
+# --- Optimisation ---
+device: cuda:0
+batch_size: 2
+num_epochs: 500
+learning_rate: 1e-4
+min_learning_rate: 2e-6             # cosine-annealing floor
+patience: 300                       # early stop after N epochs without PSNR/SSIM gain
+# 0 disables random cropping and trains on full images; LOL-v1 images are all
+# 400x600, so this is safe at batch_size 2.
+crop_size: 0
+log_epochs: 10
+seed: 42
+# Dataloader worker processes. Lower to 0 or 2 on machines with few CPU
+# cores or limited RAM.
+num_workers: 4
+
+# --- Loss weights ---
+alpha1: 1.0                         # smooth L1
+alpha2: 0.06                        # perceptual (VGG feature KL)
+alpha3: 0.05                        # histogram
+alpha4: 0.5                         # multi-scale SSIM
+alpha5: 0.0083                      # PSNR
+alpha6: 0.25                        # colour
+alpha7: 0.1                         # frequency domain (Fourier Gaussian KL)
+alpha8: 0.1                         # reserved, unused by CombinedLoss
+alpha_lpips: 0.1                    # LPIPS, added by the training loop

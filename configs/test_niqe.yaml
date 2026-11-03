@@ -1,0 +1,19 @@
+# No-reference evaluation (NIQE) on an unpaired low-light benchmark.
+# Used by: python test_niqe.py --config configs/test_niqe.yaml
+#
+# Suitable for DICM, LIME, MEF, NPE and VV, which have no ground truth.
+# Requires BasicSR's niqe_pris_params.npz; see utils/niqe_utils.py.
+
+model_path: models.llfdisc
+class_name: LLFDisc
+
+weight_path: ./weights/lol_v1/best_psnr.pth
+
+# Directory of low-light images; no test_high needed.
+test_low: ./datasets/DICM
+
+device: cuda:0
+
+# Dataloader worker processes. Lower to 0 or 2 on machines with few CPU
+# cores or limited RAM.
+num_workers: 4
