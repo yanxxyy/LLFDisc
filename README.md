@@ -305,11 +305,13 @@ LLFDisc/
 If you find this work useful, please cite it:
 
 ```bibtex
-@article{llfdisc,
-  title   = {LLFDisc: Low-Light Image Enhancement with Fourier Distribution Consistency},
-  author  = {},
-  journal = {},
-  year    = {},
+@article{yan2026using,
+  title={Using KL-divergence to focus frequency information in low-light image enhancement},
+  author={Yan, XingYang and Huang, Xiaohong and Zhang, Zhao and You, Tian and Xu, Ziheng},
+  journal={Pattern Recognition},
+  pages={114555},
+  year={2026},
+  publisher={Elsevier}
 }
 ```
 
